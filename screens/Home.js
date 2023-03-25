@@ -1,13 +1,15 @@
-import React, { useLayoutEffect } from 'react'
-import { View, Text, Button, Image } from 'react-native'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { View, Text, Button, FlatList } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import Swiper from 'react-native-deck-swiper'
-import COURSES from '../database/courses'
+// import Swiper from 'react-native-deck-swiper'
+import { firebase } from '../config'
 
 const Home = () => {
     const navigation = useNavigation()
+    const [courses, setCourses] = useState([])
+    const sessions = firebase.firestore().collection('sessions')
 
     useLayoutEffect(() => {
       navigation.setOptions({
@@ -21,60 +23,47 @@ const Home = () => {
       })
     }, [])
 
+    useEffect(() => {
+      sessions
+      .onSnapshot((querySnapshot) => {
+        const courses = []
+        querySnapshot.forEach((doc) => {
+          const { photoURL, course, title, time, location, description, college, department, tag } = doc.data()
+          courses.push({
+            id: doc.id,
+            photoURL,
+            course,
+            title,
+            time,
+            location,
+            description,
+            college,
+            department,
+            tag
+          })
+        })
+        setCourses(courses)
+      })
+    }, [])
+
     return (
       <>
+      {/* Display Cards */}
       <View>
-        <View>
-          {/*Cards*/}
-          <Swiper
-            cards={COURSES}
-            stackSize={3}
-            animateCardOpacity
-            verticalSwipe={false}
-            overlayLabels={{
-              left: {
-                title: 'NOPE',
-                style: {
-                  label: {
-                    top: -25,
-                    textAlign: 'right',
-                    color: 'red',
-                  },
-                },
-              },
-              right: {
-                title: 'JOIN',
-                style: {
-                  label: {
-                    top: -25,
-                    textAlign: 'left',
-                    color: 'green',
-                  },
-                },
-              },
-            }}
-            onSwipedRight={(card) => {
-              console.log("swipedRIGHT on " + card)
-            } }
-            onSwipedLeft={(card) => {
-              console.log("swipedLEFT on " + card)
-            } }
-            renderCard={(card) => (
-              <View key={card.room} style={{ position: 'relative', backgroundColor: 'transparent', height: '75%' }}>
-                <Image
-                  style={{ position: 'absolute', top: -25, height: '100%', width: '100%', borderRadius: 20 }}
-                  source={require('../assets/image.png')} />
-
-                <View
-                  style={{ position: 'absolute', bottom: -25, width: '100%', height: 100, borderBottomLeftRadius: 20, borderBottomRightRadius: 20, padding: 10, backgroundColor: 'white' }}
-                >
-                  <Text>{card.course}</Text>
-                  <Text>{card.time.toLocaleString(options = { second: 'none' })}</Text>
-                  <Text>{card.description}</Text>
-                </View>
-              </View>
-            )} />
-        </View>
+        <FlatList
+          data={courses}
+          renderItem={({ item }) => (
+            <View>
+              <Text>{item.photoURL}</Text>
+              <Text>{item.course}</Text>
+              <Text>{item.title}</Text>
+              <Text>{item.time}</Text>
+              <Text>{item.location}</Text>
+              <Text>{item.description}</Text>
+              <Text>{item.match}</Text>
+            </View>
+          )}
+        />
       </View>
 
       {/* Bottom Navigator */}
