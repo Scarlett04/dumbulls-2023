@@ -7,14 +7,14 @@ import Fetch from './src/Fetch';
 
 export default function App() {
   return (
-    // <View>
-    //   <Fetch />
-    // </View>
+    <View>
+      <Fetch />
+    </View>
 
-    <NavigationContainer>
-      <AuthProvider>
-        <StackNavigator />
-      </AuthProvider>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <AuthProvider>
+    //     <StackNavigator />
+    //   </AuthProvider>
+    // </NavigationContainer>
   );
 }
