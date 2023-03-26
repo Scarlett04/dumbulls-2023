@@ -1,5 +1,4 @@
-# dumbulls-2023: Checkpoint-3
+# dumbulls-2023: Checkpoint-4
 
-- Add new functions: Create new cards, display cards based on data from Firebase
-- Limitations: Cards display by random id generated, No validation
-- Need more actions: Remove cards when user swipe "Pass" (?) - Completely remove or what to do?
+- Add filter functions: Display cards by Tags
+- Limitations: Cannot auto generate tag when add new cards
