@@ -1,20 +1,22 @@
-import {createStackNavigator} from '@react-navigation/stack';
-import React from 'react';
+import { createStackNavigator } from "@react-navigation/stack";
 
-import LoginScreen from './screens/Login';
-import HomeScreen from './screens/Home';
-import MessagesScreen from './screens/Messages';
-import ExploreScreen from './screens/Explore';
-import MyRoomScreen from './screens/MyRoom';
-import AccountScreen from './screens/Account';
-import NewCardScreen from './screens/NewCard';
-import useAuth from './hooks/useAuth';
+import React from "react";
+import { Ionicons } from "@expo/vector-icons";
+
+import LoginScreen from "./screens/Login";
+import HomeScreen from "./screens/Home";
+import MessagesScreen from "./screens/Messages";
+import ExploreScreen from "./screens/Explore";
+import MyRoomScreen from "./screens/MyRoom";
+import AccountScreen from "./screens/Account";
+import NewCardScreen from "./screens/NewCard";
+import useAuth from "./hooks/useAuth";
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
-    const {user} = useAuth();
-  
+    const { user } = useAuth();
+
     return (
       <Stack.Navigator>
         {user ? (
@@ -33,8 +35,8 @@ const StackNavigator = () => {
         ) : (
             <Stack.Screen name="Login" component={LoginScreen} />
         )}
-      </Stack.Navigator>
+        </Stack.Navigator>
     );
   };
-  
+
 export default StackNavigator;
