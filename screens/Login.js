@@ -18,7 +18,7 @@ const Login = () => {
   
   return (
     <SafeAreaView style={{alignItems: 'center', top: '75%'}}>
-      <Button title="Login" onPress={login}/>
+      <Button title="Login" onPress={ login }/>
     </SafeAreaView>
   )
 }

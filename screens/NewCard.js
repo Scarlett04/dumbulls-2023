@@ -1,9 +1,10 @@
-import { View, Text, Touchable, TouchableOpacity  } from 'react-native'
+import { View, Text, TouchableOpacity  } from 'react-native'
 import React from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
-import { firebase, db } from '../config'
+import { db } from '../config'
 import { collection, addDoc } from 'firebase/firestore'
+
 
 const NewCard = () => {
   const navigation = useNavigation()
@@ -40,7 +41,6 @@ const NewCard = () => {
     console.log('Document written with ID: ', docRef.id)
     navigation.navigate('Home')
   }
-
 
   return (
     <View style={{top: 20, alignItems: 'center', flex: 1}}>
