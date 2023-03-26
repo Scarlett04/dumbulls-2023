@@ -51,7 +51,10 @@ const Home = () => {
     {/* Display Cards */}
     <View>
       <FlatList
-        data={courses.filter((course) => course.tag === tag)}
+        data={courses.filter((course) => course.tag === tag).length > 0
+          ? courses.filter((course) => course.tag === tag)
+          : courses
+        }
         renderItem={({ item }) => (
           <View>
             <Text>{item.photoURL}</Text>
